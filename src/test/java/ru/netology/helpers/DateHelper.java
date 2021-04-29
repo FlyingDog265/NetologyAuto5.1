@@ -4,12 +4,14 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
 public class DateHelper {
+    private DateHelper() {
+    }
 
-    public static String getDate(){
+    public static String getDate() {
         return LocalDate.now().format(DateTimeFormatter.ofPattern("dd.MM.yyyy"));
     }
 
-    public static String getShiftedDate(int daysToShift){
+    public static String getShiftedDate(int daysToShift) {
         return LocalDate.now().plusDays(daysToShift).format(DateTimeFormatter.ofPattern("dd.MM.yyyy"));
     }
 }

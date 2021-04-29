@@ -2,9 +2,9 @@ package ru.netology.cases;
 
 import com.codeborne.selenide.CollectionCondition;
 import com.codeborne.selenide.Condition;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
+import com.codeborne.selenide.logevents.SelenideLogger;
+import io.qameta.allure.selenide.AllureSelenide;
+import org.junit.jupiter.api.*;
 
 import java.time.Duration;
 
@@ -21,6 +21,16 @@ public class CardWithDeliveryTest {
     Duration duration = Duration.ofSeconds(15);
 
     private final int week = 7;
+
+    @BeforeAll
+    static void setUpAll() {
+        SelenideLogger.addListener("allure", new AllureSelenide());
+    }
+
+    @AfterAll
+    static void tearDownAll() {
+        SelenideLogger.removeListener("allure");
+    }
 
     @BeforeEach
     public void start() {
@@ -318,24 +328,24 @@ public class CardWithDeliveryTest {
                 .shouldHave(text("Успешно!"));
     }
 
-//    @Test
-//    @DisplayName("Отображение ошибки при отправке телефона с меньшим кол-вом цифр в поле \"Мобильный телефон\" ")
-//    public void shouldShowErrorMessageWithShortPhone() {
-//        element("span[data-test-id='city'] input").click();
-//        element("span[data-test-id='city'] input").sendKeys(getCity());
-//        element("span[data-test-id='city'] input").pressTab();
-//        element("div[class^='popup'] > div[class^='calendar']").shouldBe(visible);
-//        element("span[data-test-id='date'] input").sendKeys(getShiftedDate(week));
-//        element("span[data-test-id='date'] input").pressTab();
-//        element("span[data-test-id='name'] input").sendKeys(getName());
-//        element("span[data-test-id='phone'] input").click();
-//        element("span[data-test-id='phone'] input").sendKeys("+7965871");
-//        element("label[data-test-id='agreement'] > span[class$='box']").click();
-//        element("button[class^='button']").click();
-//        element("button[class^='button'] span[class^='spin'][class*='visible']").shouldBe(not(visible));
-//        element("span[data-test-id='phone'] span[class$='sub']")
-//                .shouldHave(text("Телефон указан неверно. Должно быть 11 цифр, например, +79012345678."));
-//    }
+    @Test
+    @DisplayName("Отображение ошибки при отправке телефона с меньшим кол-вом цифр в поле \"Мобильный телефон\" ")
+    public void shouldShowErrorMessageWithShortPhone() {
+        element("span[data-test-id='city'] input").click();
+        element("span[data-test-id='city'] input").sendKeys(getCity());
+        element("span[data-test-id='city'] input").pressTab();
+        element("div[class^='popup'] > div[class^='calendar']").shouldBe(visible);
+        element("span[data-test-id='date'] input").sendKeys(getShiftedDate(week));
+        element("span[data-test-id='date'] input").pressTab();
+        element("span[data-test-id='name'] input").sendKeys(getName());
+        element("span[data-test-id='phone'] input").click();
+        element("span[data-test-id='phone'] input").sendKeys("+7965871");
+        element("label[data-test-id='agreement'] > span[class$='box']").click();
+        element("button[class^='button']").click();
+        element("button[class^='button'] span[class^='spin'][class*='visible']").shouldBe(not(visible));
+        element("span[data-test-id='phone'] span[class$='sub']")
+                .shouldHave(text("Телефон указан неверно. Должно быть 11 цифр, например, +79012345678."));
+    }
 
     @Test
     @DisplayName("Проверка ввода телефона с буквами в поле \"Мобильный телефон\" ")

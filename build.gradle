@@ -1,12 +1,23 @@
 plugins {
     id 'java'
+    id "io.qameta.allure" version "2.8.1"
 }
 
 sourceCompatibility = 11
 compileJava.options.encoding = "UTF-8"
 compileTestJava.options.encoding = "UTF-8"
 
+allure {
+    autoconfigure = true
+    version = '2.13.2'
+
+    useJUnit5 {
+        version = '2.13.2'
+    }
+}
+
 repositories {
+    jcenter()
     mavenCentral()
 }
 
@@ -14,6 +25,8 @@ dependencies {
     testImplementation 'org.junit.jupiter:junit-jupiter:5.7.0'
     testImplementation 'com.codeborne:selenide:5.20.1'
     testImplementation 'com.github.javafaker:javafaker:1.0.2'
+    testImplementation 'io.qameta.allure:allure-selenide:2.13.2'
+    testRuntimeOnly 'io.qameta.allure:allure-junit5:2.13.9'
 }
 
 test {
